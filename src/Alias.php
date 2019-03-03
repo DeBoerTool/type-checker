@@ -16,7 +16,7 @@ final class Alias
         'NULL' => ['NULL', 'null'],
     ];
 
-    public static function is (string $alias, string $original)
+    public static function is (string $alias, string $original): bool
     {
         $aliases = self::$aliases[$original] ?? [];
 
@@ -33,7 +33,8 @@ final class Alias
 
         return array_reduce(
             $aliases,
-            function (array $carry, array $item) {
+            function (array $carry, array $item): array
+            {
                 return array_merge($carry, $item);
             },
             []
