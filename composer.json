@@ -1,0 +1,42 @@
+{
+    "name": "dbt/type-checker",
+    "description": "A type checker for PHP",
+    "keywords": [
+        "dbt",
+        "type-checker"
+    ],
+    "homepage": "https://github.com/dbt/type-checker",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Daniel S. Deboer",
+            "email": "daniel.s.deboer@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dbt\\TypeChecker\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Dbt\\TypeChecker\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
