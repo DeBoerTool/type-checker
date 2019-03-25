@@ -30,6 +30,11 @@ trait TypeTestWorld
     protected function check ($value, $type)
     {
         $this->is($value, Alias::of($type));
-        $this->isNot($value, Alias::all($type));
+
+        if ($type === 'array') {
+            $this->isNot($value, Alias::all($type, 'iterable'));
+        } else {
+            $this->isNot($value, Alias::all($type));
+        }
     }
 }

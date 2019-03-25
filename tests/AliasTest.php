@@ -3,10 +3,13 @@
 namespace Dbt\TypeChecker\Tests;
 
 use Dbt\TypeChecker\Alias;
+use Dbt\TypeChecker\Tests\Worlds\AliasTestWorld;
 use PHPUnit\Framework\TestCase;
 
 class AliasTest extends TestCase
 {
+    use AliasTestWorld;
+
     /** @test */
     public function checking_an_alias_with_an_existing_original ()
     {
@@ -30,13 +33,39 @@ class AliasTest extends TestCase
     /** @test */
     public function getting_all_aliases ()
     {
-        $this->assertCount(15, Alias::all());
+        $this->assertCount(17, Alias::all());
     }
 
     /** @test */
     public function getting_all_aliases_except_one ()
     {
         $this->assertNotContains('string', Alias::all('string'));
-        $this->assertCount(13, Alias::all('string'));
+        $this->assertCount(15, Alias::all('string'));
+    }
+
+    /**
+     * @test
+     * @dataProvider validTypesProvider
+     */
+    public function checking_if_a_type_is_valid ($types)
+    {
+        foreach ($types as $type) {
+            $this->assertTrue(
+                Alias::isValid($type)
+            );
+        }
+    }
+
+    /**
+     * @test
+     * @dataProvider invalidTypesProvider
+     */
+    public function checking_if_a_type_is_invalid ($types)
+    {
+        foreach ($types as $type) {
+            $this->assertFalse(
+                Alias::isValid($type)
+            );
+        }
     }
 }

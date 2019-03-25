@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Dbt\TypeChecker;
 
@@ -43,6 +43,10 @@ class Type
     {
         if ($type === 'callable') {
             return is_callable($this->value);
+        }
+
+        if ($type === 'iterable') {
+            return is_iterable($this->value);
         }
 
         if ($this->isClassOrInterface($type)) {

@@ -8,7 +8,7 @@ use Dbt\TypeChecker\Tests\Worlds\TypeTestWorld;
 use Dbt\TypeChecker\Type;
 use PHPUnit\Framework\TestCase;
 
-class AdvancedTypeTestTypeTest extends TestCase
+class AdvancedTypeTest extends TestCase
 {
     use TypeTestWorld;
 
@@ -17,6 +17,14 @@ class AdvancedTypeTestTypeTest extends TestCase
     {
         $this->assertTrue(
             Type::of('strstr')->is('callable')
+        );
+    }
+
+    /** @test */
+    public function checking_an_iterable ()
+    {
+        $this->assertTrue(
+            Type::of(['test'])->is('iterable')
         );
     }
 

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Dbt\TypeChecker;
 
@@ -13,21 +13,26 @@ final class Alias
         'array' => ['array'],
         'object' => ['object', 'obj'],
         'resource' => ['resource', 'res'],
+        'callable' => ['callable'],
+        'iterable' => ['iterable'],
         'NULL' => ['NULL', 'null'],
     ];
 
     public static function is (string $alias, string $original): bool
     {
-        $aliases = self::$aliases[$original] ?? [];
-
-        return in_array($alias, $aliases);
+        return in_array($alias, self::$aliases[$original] ?? []);
     }
 
-    public static function all (?string $except = null): array
+    public static function isValid (string $alias): bool
+    {
+        return in_array($alias, self::all()) || class_exists($alias);
+    }
+
+    public static function all (string ...$excepts): array
     {
         $aliases = self::$aliases;
 
-        if ($except) {
+        foreach ($excepts as $except) {
             unset($aliases[$except]);
         }
 
