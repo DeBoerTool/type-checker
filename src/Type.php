@@ -2,7 +2,7 @@
 
 namespace Dbt\TypeChecker;
 
-class Type
+class Type implements IType
 {
     /** @var mixed */
     private $value;
@@ -22,9 +22,8 @@ class Type
 
     /**
      * @param mixed $value
-     * @return \Dbt\TypeChecker\Type
      */
-    public static function of ($value): Type
+    public static function of ($value): IType
     {
         return new self($value);
     }
@@ -37,6 +36,13 @@ class Type
     public static function test ($value, string $type): bool
     {
         return self::of($value)->is($type);
+    }
+
+    public function mustBe (string $required): void
+    {
+        if (!$this->is($required)) {
+            throw WrongType::of($required, $this->type());
+        }
     }
 
     public function is (string $type): bool

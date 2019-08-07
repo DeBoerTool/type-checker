@@ -6,11 +6,20 @@ use Dbt\TypeChecker\Tests\Fixtures\ClassFixture;
 use Dbt\TypeChecker\Tests\Fixtures\Fixturable;
 use Dbt\TypeChecker\Tests\Worlds\TypeTestWorld;
 use Dbt\TypeChecker\Type;
+use Dbt\TypeChecker\WrongType;
 use PHPUnit\Framework\TestCase;
 
 class AdvancedTypeTest extends TestCase
 {
     use TypeTestWorld;
+
+    /** @test */
+    public function throwing_on_failure ()
+    {
+        $this->expectException(WrongType::class);
+
+        Type::of('test string')->mustBe('object');
+    }
 
     /** @test */
     public function checking_a_callable ()

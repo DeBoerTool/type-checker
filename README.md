@@ -35,6 +35,12 @@ Type::of($myClass)->is(MyClass::class);
 Type::of($myClass)->is(MyInterface::class);
 ```
 
+Throw on failure:
+
+```php
+Type::of('my string')->mustBe('float'); // Throws WrongType exception
+```
+
 ### Testing
 
 ``` bash
